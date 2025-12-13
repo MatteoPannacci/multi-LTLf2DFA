@@ -5,12 +5,12 @@ A fork of `LTLf2DFA` which supports multiple processes and threads using MONA at
 
 ## Install
 
-- Remove `LTLf2DFA` if present
+- Remove `LTLf2DFA` if present:
 ```
 pip uninstall ltlf2dfa
 ```
 
-- Clone the repository and install with pip:
+- Clone the repository and install it:
 ```
 git clone https://github.com/matteopannacci/multi-LTLf2DFA.git
 cd multi-LTLf2DFA
