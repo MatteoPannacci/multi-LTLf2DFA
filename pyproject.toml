@@ -1,13 +1,14 @@
 [tool.poetry]
-name = "ltlf2dfa"
-version = "1.0.2"
-description = "From LTLf/PPLTL to Deterministic Finite-state Automata (DFA)"
-authors = ["Francesco Fuggitti <francesco.fuggitti@gmail.com>"]
+name = "multi-ltlf2dfa"
+version = "0.1.0-fork"
+description = "A fork of LTLf2DFA which supports multiple processes and threads"
+authors = ["Matteo Pannacci <matteo.pannacci@gmail.com>"]
 license = "LGPLv3+ license"
 readme = "README.md"
-homepage = "https://whitemech.github.io/ltlf2dfa"
-repository = "https://github.com/whitemech/ltlf2dfa.git"
-documentation = "https://whitemech.github.io/ltlf2dfa"
+repository = "https://github.com/MatteoPannacci/multi-LTLf2DFA.git"
+upstream homepage = "https://whitemech.github.io/ltlf2dfa"
+upstream repository = "https://github.com/whitemech/LTLf2DFA"
+upstream documentation = "https://whitemech.github.io/ltlf2dfa"
 keywords = [
     "linear-time temporal logic on finite traces",
     "pure-past linear temporal logic",
@@ -19,6 +20,8 @@ classifiers = [
     'License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)',
     'Natural Language :: English',
     'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
@@ -30,14 +33,14 @@ include = []
 ltlf2dfa = 'ltlf2dfa.__main__:cli'
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/whitemech/ltlf2dfa/issues"
-"Pull Requests" = "https://github.com/whitemech/ltlf2dfa/pulls"
+"Bug Tracker" = "https://github.com/MatteoPannacci/multi-LTLf2DFA/issues"
+"Pull Requests" = "https://github.com/MatteoPannacci/multi-LTLf2DFA/pulls"
 
 [tool.poetry.dependencies]
-python = ">=3.8.1,<4.0"
+python = ">=3.6.1,<4.0"
 click = "^8.1.3"
 lark-parser = "^0.12.0"
-sympy = "^1.12"
+sympy = "^1.6.1"
 
 [tool.poetry.group.dev.dependencies]
 bandit = "^1.7.5"

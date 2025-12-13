@@ -1,5 +1,18 @@
 # History
 
+---
+
+# Fork: multi-LTLf2DFA
+
+## multi-ltlf2dfa 0.1.0 (2025-12-13)
+* Based on LTLf2DFA 1.0.2
+* Added support for concurrent MONA invocations across multiple processes and threads
+* Modified `invoke_mona()` implementation to avoid conflicts through use of temporary files instead of the shared `automa.mona`
+
+---
+
+# Upstream: LTLf2DFA
+
 ## 1.0.2 (2022-02-25)
 * Introduce `PPLTLWeakBefore` and `PPLTLPastRelease` support
 * Hotfix problem on translation of the Once operator
@@ -37,4 +50,3 @@
 ## 0.1.0 (2018-07-18)
 
 * First release on PyPI.
-

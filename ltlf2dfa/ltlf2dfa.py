@@ -17,12 +17,13 @@
 # along with ltlf2dfa.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""Main module of the pakage."""
+"""Main module of the package."""
 
 import itertools as it
 import os
 import re
 import signal
+import tempfile
 from subprocess import PIPE, Popen, TimeoutExpired  # nosec B404
 
 from sympy import And, Not, Or, simplify, symbols
@@ -156,32 +157,26 @@ def compute_declare_assumption(s):
     return None
 
 
-def createMonafile(p: str):
-    """Write the .mona file."""
-    try:
-        with open(f"{PACKAGE_DIR}/automa.mona", "w+", encoding="utf-8") as file:
-            file.write(p)
-    except IOError:
-        print("[ERROR]: Problem opening the automa.mona file!")
-
-
-def invoke_mona():
-    """Execute the MONA tool."""
-    command = f"mona -q -u -w {PACKAGE_DIR}/automa.mona"
-    process = Popen(
-        args=command,
-        stdout=PIPE,
-        stderr=PIPE,
-        preexec_fn=os.setsid,
-        shell=True,
-        encoding="utf-8",
-    )
-    try:
-        output, _ = process.communicate(timeout=30)
-        return str(output).strip()
-    except TimeoutExpired:
-        os.killpg(os.getpgid(process.pid), signal.SIGTERM)
-        return False
+def invoke_mona(mona_program: str):
+    """Execute the MONA tool using a temporary .mona file."""
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".mona", delete=True, encoding="utf-8") as f:
+        # write the temp file
+        f.write(mona_program)
+        f.flush()
+        command = f"mona -q -u -w {f.name}"
+        process = Popen(
+            ["mona", "-q", "-u", "-w", f.name],
+            stdout=PIPE,
+            stderr=PIPE,
+            preexec_fn=os.setsid,
+            encoding="utf-8",
+        )
+        try:
+            output, _ = process.communicate(timeout=30)
+            return str(output).strip()
+        except TimeoutExpired:
+            os.killpg(os.getpgid(process.pid), signal.SIGTERM)
+            return False
 
 
 def output2dot(mona_output):
@@ -195,8 +190,7 @@ def to_dfa(f, mona_dfa_out=False) -> str:
     """Translate to deterministic finite-state automaton."""
     p = MonaProgram(f)
     mona_p_string = p.mona_program()
-    createMonafile(mona_p_string)
-    mona_dfa = invoke_mona()
+    mona_dfa = invoke_mona(mona_p_string)
     if mona_dfa_out:
         return mona_dfa
     check_(mona_dfa_out is False)
