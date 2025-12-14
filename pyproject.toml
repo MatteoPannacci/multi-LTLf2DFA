@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "multi-ltlf2dfa"
-version = "0.1.0-fork"
+version = "0.1.0"
 description = "A fork of LTLf2DFA which supports multiple processes and threads"
 authors = ["Matteo Pannacci <matteo.pannacci@gmail.com>"]
 license = "LGPLv3+ license"
 readme = "README.md"
 repository = "https://github.com/MatteoPannacci/multi-LTLf2DFA.git"
-upstream homepage = "https://whitemech.github.io/ltlf2dfa"
-upstream repository = "https://github.com/whitemech/LTLf2DFA"
-upstream documentation = "https://whitemech.github.io/ltlf2dfa"
+"upstream homepage" = "https://whitemech.github.io/ltlf2dfa"
+"upstream repository" = "https://github.com/whitemech/LTLf2DFA"
+"upstream documentation" = "https://whitemech.github.io/ltlf2dfa"
 keywords = [
     "linear-time temporal logic on finite traces",
     "pure-past linear temporal logic",
@@ -28,6 +28,9 @@ classifiers = [
     'Programming Language :: Python :: 3.11',
 ]
 include = []
+packages = [
+    { include = "ltlf2dfa" }
+]
 
 [tool.poetry.scripts]
 ltlf2dfa = 'ltlf2dfa.__main__:cli'
